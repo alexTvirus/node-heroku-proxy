@@ -26,16 +26,16 @@ wsServer.on('connection', function (socket,req) {
     });
 	client.on("error", function(error) {
     // Manage error here
-    console.log(error);
+    console.log("client.error");
     });
 	client.on("end", function(error) {
     // Manage error here
-    console.log(error);
+    console.log("client.end");
     });
 	client.on("close", function(error) {
     // Manage error here
-		socket.close();
-    console.log(error);
+		client.socket.destroy();
+    console.log("client.close");
     });
 
 
@@ -53,15 +53,16 @@ wsServer.on('connection', function (socket,req) {
 
     socket.on("error", function(error) {
     // Manage error here
-    console.log(error);
+    console.log("socket.error");
     });
 	socket.on("close", function(error) {
     // Manage error here
-    console.log(error);
+    console.log("socket.close");
+		socket.close();
     });
 	socket.on("end", function(error) {
     // Manage error here
-    console.log(error);
+   console.log("socket.end");
     });
   
 
