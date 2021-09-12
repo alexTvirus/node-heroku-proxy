@@ -145,7 +145,8 @@ var server = net.createServer(function(socket) {
       });
     }
     else if (socks_version === 5) {
-      // greeting = [socks_version, supported_authentication_methods,
+	    try {
+            // greeting = [socks_version, supported_authentication_methods,
       //             ...supported_authentication_method_ids]
       socket.write(Buffer.from([5, 0]));
       socket.once('data', function(connection) {
@@ -159,6 +160,11 @@ var server = net.createServer(function(socket) {
           socket.write(response);
         });
       });
+          }
+          catch(err) {
+  		socket.end();
+          }
+      
     }
   })
   .on('error', function(err) {
