@@ -149,21 +149,19 @@ var server = net.createServer(function(socket) {
       //             ...supported_authentication_method_ids]
       socket.write(Buffer.from([5, 0]));
       socket.once('data', function(connection) {
-		  try {
+
             var address_type = connection[3];
         var address = readAddress(address_type, connection.slice(4));
-
-        net.connect(address.port, address.address, function() {
+        var temp = net.connect(address.port, address.address, function() {
             var x = socket.pipe(this);
             var y = x.pipe(socket);
           var response = Buffer.from(connection);
          response[1] = 0;
           socket.write(response);
         });
-          }
-          catch(err) {
-			socket.end();
-          }
+          temp.on('error', function (err) {
+              socket.end();
+          });
 		  
         
       });
