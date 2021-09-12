@@ -58,7 +58,6 @@ wsServer.on('connection', function (socket,req) {
 	socket.on("close", function(error) {
     // Manage error here
     console.log("socket.close");
-		socket.end();
     });
 	socket.on("end", function(error) {
     // Manage error here
