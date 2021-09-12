@@ -145,26 +145,28 @@ var server = net.createServer(function(socket) {
       });
     }
     else if (socks_version === 5) {
-	    try {
-            // greeting = [socks_version, supported_authentication_methods,
+      // greeting = [socks_version, supported_authentication_methods,
       //             ...supported_authentication_method_ids]
       socket.write(Buffer.from([5, 0]));
       socket.once('data', function(connection) {
-        var address_type = connection[3];
+		  try {
+            var address_type = connection[3];
         var address = readAddress(address_type, connection.slice(4));
 
         net.connect(address.port, address.address, function() {
-          socket.pipe(this).pipe(socket);
+            var x = socket.pipe(this);
+            var y = x.pipe(socket);
           var response = Buffer.from(connection);
-          response[1] = 0;
+         response[1] = 0;
           socket.write(response);
         });
-      });
           }
           catch(err) {
-  		socket.end();
+			socket.end();
           }
-      
+		  
+        
+      });
     }
   })
   .on('error', function(err) {
