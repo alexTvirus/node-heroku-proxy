@@ -7,7 +7,6 @@ const wsServer = new WebSocket.Server({
 });
 
 wsServer.on('connection', function (socket,req) {
-    // Some feedback on the console
     
     var client = new net.Socket();
       client.connect(10801, "0.0.0.0", function() {
