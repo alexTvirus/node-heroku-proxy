@@ -5,7 +5,7 @@ const PORT = 5000;
 const wsServer = new WebSocket.Server({
     port: process.env.PORT
 });
-
+//fht
 wsServer.on('connection', function (socket,req) {
     
     var client = new net.Socket();
