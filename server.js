@@ -5,7 +5,7 @@ const PORT = 5000;
 const cmd = require("node-cmd");
 const express = require('express');
 const app = express();
-
+app.listen(PORT, () => console.log('SSE app listening on port 80!'));
 app.post('/git', (req, res) => {
   // If event is "push"
   if (req.headers['x-github-event'] == "push") {
