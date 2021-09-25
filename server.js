@@ -4,11 +4,9 @@ var net = require('net');
 let app = require('./http-server');
 let serverX = require('http').createServer();
 
-
 const wsServer = new WebSocket.Server({
     server: serverX
 });
-
 serverX.listen(process.env.PORT, function() {
   console.log(`http/ws server listening on ${process.env.PORT}`);
 });
