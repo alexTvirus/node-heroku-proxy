@@ -38,8 +38,6 @@ wsServer.on('connection', function (socket,req) {
     console.log("client.close");
     });
 
-
-    // Attach some behavior to the incoming socket
     socket.on('message', function (msg) {
         //console.log("Received message from client: "  + msg);
          try {
