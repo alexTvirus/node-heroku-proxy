@@ -1,3 +1,5 @@
+git remote add origin https://github.com/alexTvirus/node-heroku-proxy.git
+
 git fetch origin main
 
 # Hard reset
