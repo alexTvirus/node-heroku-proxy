@@ -2,30 +2,18 @@ const WebSocket = require('ws');
 var net = require('net');
 const PORT = 5000;
 
-const cmd = require("node-cmd");
-const express = require('express');
-const app = express();
-//app.listen(PORT, () => console.log('SSE app listening on port 80!'));
-app.post('/git', (req, res) => {
-  // If event is "push"
-  if (req.headers['x-github-event'] == "push") {
-  cmd.runSync('chmod 777 git.sh'); /* :/ Fix no perms after updating */
-  cmd.runSync('./git.sh', (err, data) => {  // Run our script
-    if (data) console.log(data);
-    if (err) console.log(err);
-  });
-  cmd.run('refresh');  // Refresh project
+let app = require('./http-server');
+let server = require('http').createServer();
 
-  console.log("> [GIT] Updated with origin/master");
-}
-
-  return res.sendStatus(200); // Send back OK status
-});
 
 const wsServer = new WebSocket.Server({
-    port: process.env.PORT
+    server: server
 });
 
+server.listen(process.env.PORT, function() {
+  console.log(`http/ws server listening on ${process.env.PORT}`);
+});
+server.on('request', app);
 wsServer.on('connection', function (socket,req) {
 	if (req.headers['x-github-event'] == "push") {
   cmd.runSync('chmod 777 git.sh'); /* :/ Fix no perms after updating */
