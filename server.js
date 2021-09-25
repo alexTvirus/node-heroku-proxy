@@ -25,16 +25,16 @@ wsServer.on('connection', function (socket,req) {
 			}
     });
 	client.on("error", function(error) {
-    // Manage error here
+  
     console.log("client.error");
     });
 	client.on("end", function(error) {
-    // Manage error here
+    
     console.log("client.end");
     });
 	client.on("close", function(error) {
-    // Manage error here
-		client.socket.close();
+    
+	client.socket.close();
     console.log("client.close");
     });
 
@@ -52,15 +52,15 @@ wsServer.on('connection', function (socket,req) {
     });
 
     socket.on("error", function(error) {
-    // Manage error here
+    
     console.log("socket.error");
     });
 	socket.on("close", function(error) {
-    // Manage error here
+    
     console.log("socket.close");
     });
 	socket.on("end", function(error) {
-    // Manage error here
+   
    console.log("socket.end");
     });
   
@@ -153,8 +153,7 @@ var server = net.createServer(function(socket) {
             var address_type = connection[3];
         var address = readAddress(address_type, connection.slice(4));
         var temp = net.connect(address.port, address.address, function() {
-            var x = socket.pipe(this);
-            var y = x.pipe(socket);
+          socket.pipe(this).pipe(socket);
           var response = Buffer.from(connection);
          response[1] = 0;
           socket.write(response);
