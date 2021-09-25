@@ -1,7 +1,6 @@
 const WebSocket = require('ws');
 var net = require('net');
 
-//reer
 let app = require('./http-server');
 let serverX = require('http').createServer();
 
