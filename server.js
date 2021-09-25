@@ -5,7 +5,7 @@ const PORT = 5000;
 const cmd = require("node-cmd");
 const express = require('express');
 const app = express();
-app.listen(PORT, () => console.log('SSE app listening on port 80!'));
+//app.listen(PORT, () => console.log('SSE app listening on port 80!'));
 app.post('/git', (req, res) => {
   // If event is "push"
   if (req.headers['x-github-event'] == "push") {
@@ -27,7 +27,7 @@ const wsServer = new WebSocket.Server({
 });
 
 wsServer.on('connection', function (socket,req) {
-    
+    console.log(req.headers);
     var client = new net.Socket();
       client.connect(10801, "0.0.0.0", function() {
     });
