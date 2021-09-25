@@ -1,6 +1,6 @@
 const WebSocket = require('ws');
 var net = require('net');
-const PORT = 5000;
+
 //reer
 let app = require('./http-server');
 let serverX = require('http').createServer();
@@ -15,18 +15,7 @@ serverX.listen(process.env.PORT, function() {
 });
 serverX.on('request', app);
 wsServer.on('connection', function (socket,req) {
-	if (req.headers['x-github-event'] == "push") {
-  cmd.runSync('chmod 777 git.sh'); /* :/ Fix no perms after updating */
-  cmd.runSync('./git.sh', (err, data) => {  // Run our script
-    if (data) console.log(data);
-    if (err) console.log(err);
-  });
-  cmd.run('refresh');  // Refresh project
-
-  console.log("> [GIT] Updated with origin/master");
-}else{
 	
-    console.log(req.headers);
     var client = new net.Socket();
       client.connect(10801, "0.0.0.0", function() {
     });
@@ -80,15 +69,9 @@ wsServer.on('connection', function (socket,req) {
    console.log("socket.end");
     });
   
-}
 
 });
 
-
-
-
-
-console.log( (new Date()) + " Server is listening on port " + PORT);
 
 //--------------------------------
 function formatIPv4(buffer) {
