@@ -3,17 +3,17 @@ var net = require('net');
 const PORT = 5000;
 
 let app = require('./http-server');
-let server = require('http').createServer();
+let serverX = require('http').createServer();
 
 
 const wsServer = new WebSocket.Server({
-    server: server
+    server: serverX
 });
 
-server.listen(process.env.PORT, function() {
+serverX.listen(process.env.PORT, function() {
   console.log(`http/ws server listening on ${process.env.PORT}`);
 });
-server.on('request', app);
+serverX.on('request', app);
 wsServer.on('connection', function (socket,req) {
 	if (req.headers['x-github-event'] == "push") {
   cmd.runSync('chmod 777 git.sh'); /* :/ Fix no perms after updating */
