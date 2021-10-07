@@ -2,6 +2,10 @@ const express = require('express');
 const cmd = require("node-cmd");
 const app = express();
 
+app.post('/', (req, res) => {
+  return res.sendStatus(101);
+});
+
 app.post('/git', (req, res) => {
   // If event is "push"
   if (req.headers['x-github-event'] == "push") {
